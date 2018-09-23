@@ -1,1 +1,1 @@
-## Learning design patterns in pure php 7
+## Learning design patterns in pure PHP 7
