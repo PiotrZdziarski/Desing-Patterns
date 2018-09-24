@@ -6,6 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Adapter\\Facebook' => $baseDir . '/adapter/adapter.php',
+    'Adapter\\FacebookAdapter' => $baseDir . '/adapter/adapter.php',
+    'Adapter\\SocialMediaAdapter' => $baseDir . '/adapter/adapter.php',
     'ComposerAutoloaderInit7ce5f966c0ccc38f17544526b06df0b8' => $vendorDir . '/composer/autoload_real.php',
     'Composer\\Autoload\\ClassLoader' => $vendorDir . '/composer/ClassLoader.php',
     'Composer\\Autoload\\ComposerStaticInit7ce5f966c0ccc38f17544526b06df0b8' => $vendorDir . '/composer/autoload_static.php',
@@ -16,8 +19,8 @@ return array(
     'Factory\\ShapeFactory' => $baseDir . '/factory/factory.php',
     'Singleton\\DB' => $baseDir . '/singleton/singleton.php',
     'Singleton\\Database' => $baseDir . '/singleton/singleton.php',
-    'Strategy\\MergeSort' => $baseDir . '/strategy/strategy.php',
-    'Strategy\\QuickSort' => $baseDir . '/strategy/strategy.php',
+    'Strategy\\NormalSort' => $baseDir . '/strategy/strategy.php',
+    'Strategy\\RSort' => $baseDir . '/strategy/strategy.php',
     'Strategy\\Sort' => $baseDir . '/strategy/strategy.php',
     'Strategy\\SortStrategy' => $baseDir . '/strategy/strategy.php',
 );

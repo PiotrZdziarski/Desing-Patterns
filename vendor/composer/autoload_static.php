@@ -7,6 +7,9 @@ namespace Composer\Autoload;
 class ComposerStaticInit7ce5f966c0ccc38f17544526b06df0b8
 {
     public static $classMap = array (
+        'Adapter\\Facebook' => __DIR__ . '/../..' . '/adapter/adapter.php',
+        'Adapter\\FacebookAdapter' => __DIR__ . '/../..' . '/adapter/adapter.php',
+        'Adapter\\SocialMediaAdapter' => __DIR__ . '/../..' . '/adapter/adapter.php',
         'ComposerAutoloaderInit7ce5f966c0ccc38f17544526b06df0b8' => __DIR__ . '/..' . '/composer/autoload_real.php',
         'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/ClassLoader.php',
         'Composer\\Autoload\\ComposerStaticInit7ce5f966c0ccc38f17544526b06df0b8' => __DIR__ . '/..' . '/composer/autoload_static.php',
@@ -17,8 +20,8 @@ class ComposerStaticInit7ce5f966c0ccc38f17544526b06df0b8
         'Factory\\ShapeFactory' => __DIR__ . '/../..' . '/factory/factory.php',
         'Singleton\\DB' => __DIR__ . '/../..' . '/singleton/singleton.php',
         'Singleton\\Database' => __DIR__ . '/../..' . '/singleton/singleton.php',
-        'Strategy\\MergeSort' => __DIR__ . '/../..' . '/strategy/strategy.php',
-        'Strategy\\QuickSort' => __DIR__ . '/../..' . '/strategy/strategy.php',
+        'Strategy\\NormalSort' => __DIR__ . '/../..' . '/strategy/strategy.php',
+        'Strategy\\RSort' => __DIR__ . '/../..' . '/strategy/strategy.php',
         'Strategy\\Sort' => __DIR__ . '/../..' . '/strategy/strategy.php',
         'Strategy\\SortStrategy' => __DIR__ . '/../..' . '/strategy/strategy.php',
     );
