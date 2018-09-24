@@ -7,12 +7,20 @@ namespace Composer\Autoload;
 class ComposerStaticInit7ce5f966c0ccc38f17544526b06df0b8
 {
     public static $classMap = array (
+        'ComposerAutoloaderInit7ce5f966c0ccc38f17544526b06df0b8' => __DIR__ . '/..' . '/composer/autoload_real.php',
+        'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/ClassLoader.php',
+        'Composer\\Autoload\\ComposerStaticInit7ce5f966c0ccc38f17544526b06df0b8' => __DIR__ . '/..' . '/composer/autoload_static.php',
+        'DisplayData' => __DIR__ . '/../..' . '/public/index.php',
         'Factory\\Position' => __DIR__ . '/../..' . '/factory/factory.php',
         'Factory\\Rectangle' => __DIR__ . '/../..' . '/factory/factory.php',
         'Factory\\Shape' => __DIR__ . '/../..' . '/factory/factory.php',
         'Factory\\ShapeFactory' => __DIR__ . '/../..' . '/factory/factory.php',
         'Singleton\\DB' => __DIR__ . '/../..' . '/singleton/singleton.php',
         'Singleton\\Database' => __DIR__ . '/../..' . '/singleton/singleton.php',
+        'Strategy\\MergeSort' => __DIR__ . '/../..' . '/strategy/strategy.php',
+        'Strategy\\QuickSort' => __DIR__ . '/../..' . '/strategy/strategy.php',
+        'Strategy\\Sort' => __DIR__ . '/../..' . '/strategy/strategy.php',
+        'Strategy\\SortStrategy' => __DIR__ . '/../..' . '/strategy/strategy.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
