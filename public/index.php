@@ -5,6 +5,7 @@ use Factory\ShapeFactory;
 use Strategy\Sort;
 use Adapter\FacebookAdapter;
 use Adapter\Facebook;
+use Facade\PageFacade;
 
 require_once '../start.php';
 
@@ -14,13 +15,15 @@ class DisplayData{
     private $factory;
     private $sort;
     private $facebookAdapter;
+    private $pageFacade;
 
-    public function __construct($factory, $sort, $facebookAdapter)
+    public function __construct($factory, $sort, $facebookAdapter, $pageFacade)
     {
         $this->singleton = Database::getInstance();
         $this->factory = $factory;
         $this->sort = $sort;
         $this->facebookAdapter = $facebookAdapter;
+        $this->pageFacade = $pageFacade;
     }
 
     public function draw()
@@ -42,6 +45,11 @@ class DisplayData{
         $this->facebookAdapter->post("Random message");
         $this->break_line();
 
+        //facade
+        $id = 17;
+        $this->pageFacade->createAndServe("Serving a page for ID: ", $id);
+        $this->break_line();
+
 
     }
 
@@ -59,5 +67,7 @@ $sort = new Sort($data);
 
 $facebookAdapter = new FacebookAdapter(new Facebook());
 
-$displayData = new DisplayData($factory, $sort, $facebookAdapter);
+$pageFacade = new PageFacade();
+
+$displayData = new DisplayData($factory, $sort, $facebookAdapter, $pageFacade);
 $displayData->draw();
