@@ -1,5 +1,7 @@
 <?php
 
+namespace Factory;
+
 interface Shape {
 
     public function draw();
@@ -34,13 +36,3 @@ class ShapeFactory {
         }
     }
 }
-
-//function drawStuff(Shape $shape) {
-//    $shape->draw();
-//}
-//$shape = new Rectangle();
-//drawStuff($shape);'
-
-$factory = new ShapeFactory();
-$rectangle = $factory->create('Rectangle');
-$rectangle->draw();

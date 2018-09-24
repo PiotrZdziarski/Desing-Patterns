@@ -1,5 +1,7 @@
 <?php
 
+namespace Singleton;
+
 class Database
 {
 
@@ -33,23 +35,6 @@ class Database
 }
 
 class DB{}
-
-$db = Database::getInstance();
-$db2 = Database::getInstance();
-$db3 = Database::getInstance();
-echo $db->query();
-
-echo var_dump($db);
-echo var_dump($db2);
-echo var_dump($db3);
-
-$dbPublic = new DB();
-$dbPublic2 = new DB();
-$dbPublic3 = new DB();
-
-echo var_dump($dbPublic);
-echo var_dump($dbPublic2);
-echo var_dump($dbPublic3);
 
 
 
