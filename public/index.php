@@ -7,6 +7,8 @@ use Adapter\FacebookAdapter;
 use Adapter\Facebook;
 use Facade\PageFacade;
 use Decorator\FileLogger;
+use Command\StockSimulator;
+use Command\UpdatePricesCommand;
 
 require_once '../start.php';
 
@@ -18,8 +20,9 @@ class DisplayData{
     private $facebookAdapter;
     private $pageFacade;
     private $log;
+    private $command;
 
-    public function __construct($factory, $sort, $facebookAdapter, $pageFacade, $log)
+    public function __construct($factory, $sort, $facebookAdapter, $pageFacade, $log, $command)
     {
         $this->singleton = Database::getInstance();
         $this->factory = $factory;
@@ -27,55 +30,77 @@ class DisplayData{
         $this->facebookAdapter = $facebookAdapter;
         $this->pageFacade = $pageFacade;
         $this->log = $log;
+        $this->command = $command;
     }
 
     public function draw()
     {
         //singleton
-        echo $this->singleton->query();
-        $this->break_line();
+        $this->display_data($this->singleton->query());
 
         //factory
         $rectangle =  $this->factory->create('Rectangle');
-        $rectangle->draw();
-        $this->break_line();
+        $this->display_data($rectangle->draw());
 
         //strategy
-        $this->sort->draw();
-        $this->break_line();
+        $this->display_data($this->sort->draw());
 
         //adapter
-        $this->facebookAdapter->post("Random message");
-        $this->break_line();
+        $this->display_data($this->facebookAdapter->post("Random message"));
 
         //facade
-        $id = 17;
-        $this->pageFacade->createAndServe("Serving a page for ID: ", $id);
-        $this->break_line();
+        $this->display_data($this->pageFacade->createAndServe("Serving a page for ID: ", $id = 17));
 
-        //
-        $this->log->log("first file");
+        //decorator
+        $this->display_data($this->log->log("first file"));
+
+        //command
+        $this->display_data($this->command->execute());
     }
 
     private function break_line()
     {
         echo '<br>';
     }
+
+    public function display_data($data) {
+        echo $data;
+        $this->break_line();
+    }
 }
 
 
 $factory = new ShapeFactory();
 
+//strategy
 $data = [2123123123,12312,3,542345,5,3,543,45];
 $sort = new Sort($data);
 
+
+//adapter
 $facebookAdapter = new FacebookAdapter(new Facebook());
 
+//facade
 $pageFacade = new PageFacade();
 
+//decorator
 $log = new FileLogger();
 $log = new Decorator\EmailLogger($log);
 $log = new Decorator\SpaceLogger($log);
 
-$displayData = new DisplayData($factory, $sort, $facebookAdapter, $pageFacade, $log);
+
+//command
+$input = UpdatePricesCommand::class;
+
+if(class_exists($input)) {
+
+    $command = new $input(new StockSimulator());
+
+} else {
+    throw new \Exception("Error");
+}
+//--------
+
+
+$displayData = new DisplayData($factory, $sort, $facebookAdapter, $pageFacade, $log, $command);
 $displayData->draw();
