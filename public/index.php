@@ -6,6 +6,7 @@ use Strategy\Sort;
 use Adapter\FacebookAdapter;
 use Adapter\Facebook;
 use Facade\PageFacade;
+use Decorator\FileLogger;
 
 require_once '../start.php';
 
@@ -16,14 +17,16 @@ class DisplayData{
     private $sort;
     private $facebookAdapter;
     private $pageFacade;
+    private $log;
 
-    public function __construct($factory, $sort, $facebookAdapter, $pageFacade)
+    public function __construct($factory, $sort, $facebookAdapter, $pageFacade, $log)
     {
         $this->singleton = Database::getInstance();
         $this->factory = $factory;
         $this->sort = $sort;
         $this->facebookAdapter = $facebookAdapter;
         $this->pageFacade = $pageFacade;
+        $this->log = $log;
     }
 
     public function draw()
@@ -50,7 +53,8 @@ class DisplayData{
         $this->pageFacade->createAndServe("Serving a page for ID: ", $id);
         $this->break_line();
 
-
+        //
+        $this->log->log("first file");
     }
 
     private function break_line()
@@ -69,5 +73,9 @@ $facebookAdapter = new FacebookAdapter(new Facebook());
 
 $pageFacade = new PageFacade();
 
-$displayData = new DisplayData($factory, $sort, $facebookAdapter, $pageFacade);
+$log = new FileLogger();
+$log = new Decorator\EmailLogger($log);
+$log = new Decorator\SpaceLogger($log);
+
+$displayData = new DisplayData($factory, $sort, $facebookAdapter, $pageFacade, $log);
 $displayData->draw();
