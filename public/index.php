@@ -12,7 +12,8 @@ use Command\UpdatePricesCommand;
 
 require_once '../start.php';
 
-class DisplayData{
+class DisplayData
+{
 
     private $singleton;
     private $factory;
@@ -21,8 +22,11 @@ class DisplayData{
     private $pageFacade;
     private $log;
     private $command;
+    private $observingGroup;
+    private $company1;
+    private $company2;
 
-    public function __construct($factory, $sort, $facebookAdapter, $pageFacade, $log, $command)
+    public function __construct($factory, $sort, $facebookAdapter, $pageFacade, $log, $command, $observingGroup)
     {
         $this->singleton = Database::getInstance();
         $this->factory = $factory;
@@ -31,6 +35,10 @@ class DisplayData{
         $this->pageFacade = $pageFacade;
         $this->log = $log;
         $this->command = $command;
+        $this->observingGroup = $observingGroup;
+
+        $this->company1 = new \Observer\Google(14.99);
+        $this->company2 = new \Observer\Walmart(24.99);
     }
 
     public function draw()
@@ -39,7 +47,7 @@ class DisplayData{
         $this->display_data($this->singleton->query());
 
         //factory
-        $rectangle =  $this->factory->create('Rectangle');
+        $rectangle = $this->factory->create('Rectangle');
         $this->display_data($rectangle->draw());
 
         //strategy
@@ -56,6 +64,9 @@ class DisplayData{
 
         //command
         $this->display_data($this->command->execute());
+
+        $this->display_data($this->observingGroup->add($this->company1));
+        $this->display_data($this->observingGroup->add($this->company2));
     }
 
     private function break_line()
@@ -63,7 +74,8 @@ class DisplayData{
         echo '<br>';
     }
 
-    public function display_data($data) {
+    public function display_data($data)
+    {
         echo $data;
         $this->break_line();
     }
@@ -73,7 +85,7 @@ class DisplayData{
 $factory = new ShapeFactory();
 
 //strategy
-$data = [2123123123,12312,3,542345,5,3,543,45];
+$data = [2123123123, 12312, 3, 542345, 5, 3, 543, 45];
 $sort = new Sort($data);
 
 
@@ -92,7 +104,7 @@ $log = new Decorator\SpaceLogger($log);
 //command
 $input = UpdatePricesCommand::class;
 
-if(class_exists($input)) {
+if (class_exists($input)) {
 
     $command = new $input(new StockSimulator());
 
@@ -102,5 +114,9 @@ if(class_exists($input)) {
 //--------
 
 
-$displayData = new DisplayData($factory, $sort, $facebookAdapter, $pageFacade, $log, $command);
+//observer
+$observingGroup = new \Observer\ObservingGroup();
+
+
+$displayData = new DisplayData($factory, $sort, $facebookAdapter, $pageFacade, $log, $command, $observingGroup);
 $displayData->draw();
